@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merry Christmas Kinsley!</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(#0d1b2a, #1b263b);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .christmas-tree {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tree-layer {
+            position: relative;
+            width: 0;
+            height: 0;
+        }
+
+        .layer-1 {
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-bottom: 180px solid #2d5a27;
+            filter: brightness(1.2);
+        }
+
+        .layer-2 {
+            border-left: 140px solid transparent;
+            border-right: 140px solid transparent;
+            border-bottom: 220px solid #367d2e;
+            margin-top: -100px;
+        }
+
+        .layer-3 {
+            border-left: 180px solid transparent;
+            border-right: 180px solid transparent;
+            border-bottom: 260px solid #2d5a27;
+            margin-top: -140px;
+            filter: brightness(0.9);
+        }
+
+        .trunk {
+            width: 50px;
+            height: 100px;
+            background: linear-gradient(90deg, #4a3227 0%, #795548 50%, #4a3227 100%);
+            border-radius: 5px;
+            margin-top: -20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .star {
+            color: #FFD700;
+            font-size: 40px;
+            position: absolute;
+            top: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: starTwinkle 1.5s infinite alternate;
+            z-index: 2;
+        }
+
+        .ornament {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite alternate;
+            box-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+
+        .snowflake {
+            color: #fff;
+            position: absolute;
+            top: -20px;
+            user-select: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        @keyframes twinkle {
+            from { filter: brightness(0.5); }
+            to { filter: brightness(1.3) drop-shadow(0 0 3px rgba(255,255,255,0.7)); }
+        }
+
+        @keyframes starTwinkle {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.5) drop-shadow(0 0 15px gold); }
+        }
+
+        .title {
+            position: absolute;
+            top: 20px;
+            color: #ff4d4d;
+            font-size: 48px;
+            font-family: 'Arial', cursive;
+            text-shadow: 0 0 10px rgba(255,77,77,0.7);
+            animation: titleGlow 2s infinite alternate;
+        }
+
+        .message {
+            position: absolute;
+            bottom: 50px;
+            left: 0;
+            right: 0;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .name {
+            font-size: 36px;
+            color: #ffd700;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255,215,0,0.7);
+            animation: nameGlow 1.5s infinite alternate;
+            text-align: center;
+            width: 100%;
+        }
+
+        .wish {
+            font-size: 24px;
+            color: #ff69b4;
+            text-shadow: 0 0 8px rgba(255,105,180,0.7);
+            text-align: center;
+            width: 100%;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 0 0 10px rgba(255,77,77,0.7); }
+            to { text-shadow: 0 0 20px rgba(255,77,77,0.9), 0 0 30px rgba(255,77,77,0.7); }
+        }
+
+        @keyframes nameGlow {
+            from { text-shadow: 0 0 10px rgba(255,215,0,0.7); }
+            to { text-shadow: 0 0 20px rgba(255,215,0,0.9), 0 0 30px rgba(255,215,0,0.7); }
+        }
+
+        .santa-sleigh {
+            position: absolute;
+            top: 20px;
+            font-size: 48px;
+            animation: flyingSanta 15s linear infinite;
+        }
+
+        @keyframes flyingSanta {
+            0% {
+                left: -100px;
+                transform: translateY(0);
+            }
+            25% {
+                transform: translateY(20px);
+            }
+            50% {
+                transform: translateY(0);
+            }
+            75% {
+                transform: translateY(-20px);
+            }
+            100% {
+                left: 100%;
+                transform: translateY(0);
+            }
+        }
+
+        .envelope-container {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            background: #1b263b;
+            transition: opacity 1s ease-out;
+        }
+
+        .envelope {
+            width: 300px;
+            height: 200px;
+            background: #f5f5f5;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s ease;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .envelope-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .to-text {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 10px;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .name-text {
+            font-size: 48px;
+            color: #1b263b;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .envelope:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+            transform-origin: top;
+            transition: transform 1s ease;
+            border: 2px solid #ddd;
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        .main-content {
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&display=swap');
+
+        .present-container {
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px; 
+        }
+
+        .present {
+            font-size: 24px;
+            animation: presentBounce 3s infinite alternate ease-in-out;
+            display: inline-block; 
+        }
+
+        @keyframes presentBounce {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="envelope-container" id="envelopeContainer">
+        <div class="envelope" id="envelope">
+            <div class="envelope-flap"></div>
+            <div class="envelope-front">
+                <div class="to-text">To</div>
+                <div class="name-text">Kinsley</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content" id="mainContent">
+        <div class="christmas-tree">
+            <div class="star">⭐</div>
+            <div class="tree-layer layer-1"></div>
+            <div class="tree-layer layer-2"></div>
+            <div class="tree-layer layer-3"></div>
+            <div class="trunk"></div>
+        </div>
+
+        <div class="santa-sleigh">🎅🛷</div>
+
+        <div class="message">
+            <div class="name">Kinsley!</div>
+            <div class="wish">Happy Christmas</div>
+        </div>
+    </div>
+
+    <script>
+        function addOrnaments() {
+            const layers = document.querySelectorAll('.tree-layer');
+            
+            layers.forEach((layer, index) => {
+                const width = parseInt(getComputedStyle(layer).borderRightWidth);
+                const height = parseInt(getComputedStyle(layer).borderBottomWidth);
+                
+                let numApples;
+                if (index === 0) numApples = 5;      
+                else if (index === 1) numApples = 7; 
+                else numApples = 10;                  
+                
+                for(let i = 0; i < numApples; i++) {
+                    const apple = document.createElement('div');
+                    apple.className = 'ornament';
+                    apple.textContent = '🍎'; 
+                    
+                    if (index === 2) { 
+                        const ring = Math.floor(i / 4);
+                        const posInRing = i % 4;
+                        const baseRadius = width * (0.15 + ring * 0.1);
+                        const angle = (posInRing / 4) * Math.PI + (ring * 0.2);
+                        
+                        const left = Math.cos(angle) * baseRadius;
+                        const maxTop = (height * 0.7) * (1 - Math.abs(left) / (width * 0.5));
+                        const top = Math.min(Math.sin(angle) * baseRadius + height * 0.3, maxTop);
+                        
+                        apple.style.left = `${left}px`;
+                        apple.style.top = `${top}px`;
+                    } else {
+                        const angle = (i / numApples) * Math.PI + (Math.random() * 0.1);
+                        const radius = width * (0.15 + Math.random() * 0.15);
+                        const left = Math.cos(angle) * radius;
+                        const top = Math.sin(angle) * radius + height * 0.4;
+                        
+                        apple.style.left = `${left}px`;
+                        apple.style.top = `${top}px`;
+                    }
+                    
+                    apple.style.fontSize = index === 2 ? '16px' : '18px';
+                    layer.appendChild(apple);
+                }
+            });
+
+            
+            const presentContainer = document.createElement('div');
+            presentContainer.className = 'present-container';
+            
+            for(let i = 0; i < 5; i++) {
+                const present = document.createElement('div');
+                present.className = 'present';
+                present.textContent = '🎁';
+                presentContainer.appendChild(present);
+            }
+            
+            document.querySelector('.christmas-tree').appendChild(presentContainer);
+        }
+
+       
+        addOrnaments();
+
+        function createSnow() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            const snowflakes = ['❅', '❆', '❄'];
+            snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+            
+            snowflake.style.left = Math.random() * window.innerWidth + 'px';
+            snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+            snowflake.style.fontSize = Math.random() * 15 + 10 + 'px';
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+            
+            document.body.appendChild(snowflake);
+            snowflake.addEventListener('animationend', () => snowflake.remove());
+        }
+
+        document.getElementById('envelope').addEventListener('click', function() {
+            this.classList.add('open');
+            
+            setTimeout(() => {
+                document.getElementById('envelopeContainer').style.opacity = '0';
+                document.getElementById('mainContent').style.opacity = '1';
+                
+                setTimeout(() => {
+                    document.getElementById('envelopeContainer').style.display = 'none';
+                    addOrnaments();
+                    setInterval(createSnow, 100);
+                }, 1000);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
